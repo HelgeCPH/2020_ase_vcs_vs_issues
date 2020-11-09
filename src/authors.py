@@ -7,10 +7,10 @@ import sys
 
 from pydriller import RepositoryMining
 
-RANGE_MARKER = sys.argv[1]  # "tag" or "commit"
+RANGE_MARKER = sys.argv[1]  # tag or commit
 REPO_NAME = sys.argv[2]  # ignite
-FROM = sys.argv[3]  # 2a35fb6f02d6031e7f7b6a61e01579c48c081a67
-TO = sys.argv[4]  # 383273e3f66f702de2482466dce954d570a8ccf2
+FROM = sys.argv[3]  # v.1.2.3 or 2a35fb6f02d6031e7f7b6a61e01579c48c081a67
+TO = sys.argv[4]  # v.4.5.6 or 383273e3f66f702de2482466dce954d570a8ccf2
 
 if not os.path.isdir(REPO_NAME):
     print(f"Directory '{REPO_NAME}' does not exist..")
@@ -24,7 +24,7 @@ if RANGE_MARKER == "tag":
 elif RANGE_MARKER == "commit":
     rm = RepositoryMining(REPO_NAME, from_commit=FROM, to_commit=TO)
 else:
-    print("It seems you failed to provide 'tag' or 'commit' as your second parameter. ")
+    print("It seems you failed to provide 'tag' or 'commit' as your first parameter. ")
 
 authors = set()
 
