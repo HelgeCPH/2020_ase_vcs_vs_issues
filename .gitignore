@@ -3,7 +3,7 @@ GSE_Branching_vs_Quality.html
 
 .idea
 
-src/output*
+output
 
 src/ignite*
 src/airflow*

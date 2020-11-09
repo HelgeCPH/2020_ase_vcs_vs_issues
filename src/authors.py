@@ -1,5 +1,7 @@
 # Run with: authors.py [tag/commit] <apache_repo_name> <from> <to>
 
+# Prints number of unique authors AND outputs list of unique author names as CSV.
+
 import os
 import subprocess
 import csv
