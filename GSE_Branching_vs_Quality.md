@@ -169,6 +169,7 @@ Which branching model is it?
 
 ![](images/your_turn.gif)
 
+## RQ0: With which branching models are the studied SW systems built?
 
 ## RQ1: Is there a correlation between branching activity and SW quality?
 
@@ -176,8 +177,9 @@ Here, I mean number of bugs reported in an issue tracker as a proxy for SW quali
 
 ## RQ2: Are there metrics, such as size of commit, number of developers working on it, or similar (you choose) that are possess a stronger correlation to SW quality compared to branching activity?
 
+------
 
-# What do we need to investigate these two Questions?
+# What do we need to investigate these research questions?
 
 ## Some SW systems to study
 
@@ -189,6 +191,8 @@ I suggest that we have a look at three systems from the Apache Software Foundati
 
 So clone these to your machines.
 
+Of course, we can include any other system that you would like to study too! For simplicity, we need that they have a JIRA (or similar) issue tracker online.
+
 ### Something that corresponds to binaries in Shihab et al.
 
 Let's use tagged versions for each of the systems as corresponding to binaries.
@@ -199,7 +203,7 @@ How do we get these?
 
 How do we get these?
 
-An example with PyDriller, see `code_snippets/git_to_png.py`
+An example with PyDriller, see `code_snippets/git_to_png.py`:
 
 ```python
 from pydriller import RepositoryMining
@@ -221,7 +225,23 @@ See the complete PyDriller documentation: https://pydriller.readthedocs.io/en/la
 
 Let's analyze history between tagged version commits as constituents of this version.
 
-![](ignite_1.5_1.6.png)
+![](images/ignite_1.5_1.6.png)
+
+## Collecting all Tags/Releases
+
+For each repo, we need all tagged releases to find commits that "belong" to a version.
+
+```python
+import os
+from github import Github
+
+
+ENV_NAME = 'GITHUB_API_KEY'
+gh = Github(login_or_token=os.getenv(ENV_NAME))
+
+tags = [t for t in gh.get_organization("apache").get_repo("ignite").get_tags()]
+print(tags[0].name, tags[0].commit.sha)
+```
 
 
 ## Failure Statistics
@@ -264,8 +284,37 @@ See JIRA API docs:
   * https://developer.atlassian.com/server/jira/platform/jira-apis-32344053/
   * https://docs.atlassian.com/DAC/rest/jira/6.1.html
   
-<!-- # Plotting 2D Data -->
+# Plotting 2D Data
 
+See Matplotlib's official documentation: https://pythonspot.com/matplotlib-scatterplot/
+
+
+```python
+import matplotlib.pyplot as plt
+
+
+x_data = list(range(10, 100))
+y_data = list(range(100, 10, -1))
+
+# Plot
+plt.scatter(x_data, y_data, alpha=0.5)
+plt.title('Scatter plot pythonspot.com')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+```
+
+### Plotting a correlation matrix
+
+With pandas and matplotlib it could be:
+
+
+```python
+import matplotlib.pyplot as plt
+
+plt.matshow(dataframe.corr())
+plt.show()
+```
 
 # Computing Correlations
 
@@ -281,6 +330,7 @@ print(ρ, p)
 ```
 
 See the documentation of SciPy's implementation: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html
+or Pandas' documentation: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.corr.html
 
 
 # Who is doing what now?
@@ -297,7 +347,3 @@ Work in teams of two on one of the sub-tasks
 
 
 
-
-# More References
-
-  * The book on which this lecture is based on: https://www.gitbook.com/book/gitbookio/progit/details
