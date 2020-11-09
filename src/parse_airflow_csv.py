@@ -4,7 +4,7 @@ import semver
 
 bugs_to_versions = {}
 
-df = pd.read_csv('./output/airflow_jira.csv')
+df = pd.read_csv('./../output/airflow_jira.csv')
 df_bugs = df[df['issue_type'] == 'Bug']
 
 for index, row in df_bugs.head(300).iterrows():
@@ -30,5 +30,5 @@ output = 'version,count\n'
 for version, count in bugs_to_versions.items():
     output += f'{version},{count}\n'
 
-with open('./output/airflow_jira_bugs.csv', 'w') as file:
+with open('./../output/airflow_jira_bugs.csv', 'w') as file:
     file.write(output)
