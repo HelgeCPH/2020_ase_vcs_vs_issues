@@ -3,8 +3,11 @@ GSE_Branching_vs_Quality.html
 
 .idea
 
+src/output*
+
 src/ignite*
 src/airflow*
 src/camel*
 src/unique_authors.csv
+
 
