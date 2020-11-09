@@ -1,0 +1,8 @@
+version: '3.3'
+
+services:
+
+    analysis:
+      build: ./
+      image: stifstof/gitanalysisase:latest
+      container_name: gitanalysisase_container
